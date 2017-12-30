@@ -7,6 +7,7 @@
     <groupId>com.techprimers.testing</groupId>
     <artifactId>jenkins-example</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
 
     <properties>
@@ -16,8 +17,17 @@
         <junit.platform.version>1.0.0-M3</junit.platform.version>
     </properties>
 
-    <build>
-        <plugins>
+  <distributionManagement>
+    <snapshotRepository>
+        <id>devops</id>
+        <url>http://http://localhost:8081/nexus/content/repositories/devops/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+<build>
+    <plugins>
+  
+  
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -37,10 +47,48 @@
                     </dependency>
                 </dependencies>
             </plugin>
-        </plugins>
-    </build>
-
-    <dependencies>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-deploy-plugin</artifactId>
+      <version>2.8.1</version>
+      <executions>
+       <execution>
+        <id>default-deploy</id>
+        <phase>deploy</phase>
+        <goals>
+          <goal>deploy</goal>
+        </goals>
+      </execution>
+    </executions>
+   </plugin>
+       <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.20.1</version>
+        </plugin>
+    
+     <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.5.1</version>
+        <executions>
+            <execution>
+                <id>default-deploy</id>
+                <phase>deploy</phase>
+                <goals>
+                    <goal>deploy</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <serverId>nexus</serverId>
+            <nexusUrl>http://localhost:8081/nexus/</nexusUrl>
+            <skipStaging>true</skipStaging>
+        </configuration>
+    </plugin>
+    </plugins>
+</build>
+<dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -54,7 +102,7 @@
         </dependency>
 
     </dependencies>
-
+        
     <repositories>
         <repository>
             <id>myMavenRepo.read</id>
