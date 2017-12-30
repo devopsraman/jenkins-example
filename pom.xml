@@ -20,7 +20,7 @@
   <distributionManagement>
     <snapshotRepository>
         <id>devops</id>
-        <url>http://http://localhost:8081/nexus/content/repositories/devops/</url>
+        <url>http://localhost:8081/repository/devops/</url>
     </snapshotRepository>
   </distributionManagement>
 
