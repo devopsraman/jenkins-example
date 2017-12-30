@@ -20,7 +20,7 @@ pipeline {
             }
         }
         
-          stage("build & SonarQube analysis") {
+          stage ("build & SonarQube analysis") {
           node {
               withSonarQubeEnv('Sonar') {
                   withMaven(maven : 'maven_3_5_2') {
@@ -29,7 +29,7 @@ pipeline {
            }
        }
 
-      stage("Quality Gate"){
+      stage ("Quality Gate") {
           timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()
               if (qg.status != 'OK') {
